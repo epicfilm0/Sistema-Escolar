@@ -1,0 +1,16 @@
+com\colegio\pe\model\User.class
+com\colegio\pe\service\UserDetailsServiceImpl.class
+com\colegio\pe\controller\ProfileController.class
+com\colegio\pe\repository\GradoRepository.class
+com\colegio\pe\data\DataInitializer.class
+com\colegio\pe\config\SecurityConfig.class
+com\colegio\pe\model\Grado.class
+com\colegio\pe\ColegioIntranetApplication.class
+com\colegio\pe\controller\GlobalControllerAdvice.class
+com\colegio\pe\model\Role.class
+com\colegio\pe\controller\AdminController.class
+com\colegio\pe\controller\AuthController.class
+com\colegio\pe\controller\RoleController.class
+com\colegio\pe\repository\UserRepository.class
+com\colegio\pe\controller\GradoController.class
+com\colegio\pe\repository\RoleRepository.class

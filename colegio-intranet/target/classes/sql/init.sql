@@ -1,0 +1,13 @@
+CREATE DATABASE IF NOT EXISTS colegio_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE colegio_db;
+
+CREATE TABLE IF NOT EXISTS users (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(100) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  role VARCHAR(50) NOT NULL
+);
+
+INSERT INTO users (username, password, role) VALUES
+('admin', '$2a$10$CjwK2dXc6jFZQ9pR6o7sE.3WyJq6K8c1Q9f5bGZx6qE1a0Yb2c3d4', 'ROLE_ADMIN'),
+('profesor', '$2a$10$D1pK2dYc6jFZQ9pR6o7sE.3WyJq6K8c1Q9f5bGZx6qE1a0Yb2c3d5', 'ROLE_PROFESOR');

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div class="container-scroller">
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div class="container-fluid page-body-wrapper">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="font-weight-bold">Roles del Sistema</h3>
+                    <a class="btn btn-primary" th:href="@{/roles/nuevo}">+ Nuevo Rol</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div th:if="${param.success}" class="alert alert-success">Rol guardado correctamente</div>
+                        <div th:if="${param.deleted}" class="alert alert-danger">Rol eliminado correctamente</div>
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="r : ${roles}">
+                                <td th:text="${r.id}"></td>
+                                <td th:text="${r.nombre}"></td>
+                                <td th:text="${r.descripcion}"></td>
+                                <td>
+                                    <a class="btn btn-sm btn-info" th:href="@{'/roles/editar/' + ${r.id}}">Editar</a>
+                                    <a class="btn btn-sm btn-danger"
+                                       th:href="@{'/roles/eliminar/' + ${r.id}}"
+                                       onclick="return confirm('¿Eliminar este rol?')">Eliminar</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div th:replace="fragments/footer :: footer"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

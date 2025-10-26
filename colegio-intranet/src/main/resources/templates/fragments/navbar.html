@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<nav th:fragment="navbar" class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+        <a class="navbar-brand brand-logo" th:href="@{/home}">
+            <img th:src="@{/assets/images/logo.svg}" alt="logo" />
+        </a>
+        <a class="navbar-brand brand-logo-mini" th:href="@{/home}">
+            <img th:src="@{/assets/images/logo-mini.svg}" alt="logo-mini" />
+        </a>
+    </div>
+
+    <div class="navbar-menu-wrapper d-flex align-items-center">
+        <ul class="navbar-nav">
+            <li class="nav-item font-weight-semibold d-none d-lg-block">Help : +050 2992 709</li>
+        </ul>
+
+        <form class="ml-auto search-form d-none d-md-block" th:action="@{/search}" method="get">
+            <div class="form-group">
+                <input type="search" class="form-control" placeholder="Buscar aquí..." name="query" />
+            </div>
+        </form>
+
+        <ul class="navbar-nav ml-auto">
+            <!-- Dropdown del usuario logueado -->
+            <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                    <img class="img-xs rounded-circle" th:src="@{/assets/images/faces/face8.jpg}" alt="Profile image" />
+                </a>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                    <div class="dropdown-header text-center">
+                        <img class="img-md rounded-circle mb-2" th:src="@{/assets/images/faces/face8.jpg}" alt="Profile image" />
+                        <!-- Nombre completo -->
+                        <p class="mb-1 mt-2 font-weight-semibold" th:text="${username}">Usuario</p>
+                        <!-- Correo -->
+                        <p class="font-weight-light text-muted mb-0" th:text="${email}">correo@ejemplo.com</p>
+                        <!-- Rol -->
+                        <small class="text-muted d-block mt-1" th:text="${rol}">ROLE_ADMIN</small>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" th:href="@{/profile}">
+                        <i class="ti-user mr-2 text-primary"></i>Mi Perfil
+                    </a>
+                    <a class="dropdown-item" th:href="@{/logout}">
+                        <i class="ti-power-off mr-2 text-danger"></i>Cerrar Sesión
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+</html>

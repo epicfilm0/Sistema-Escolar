@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div class="container-scroller">
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div class="container-fluid page-body-wrapper">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <h3 class="font-weight-bold mb-4" th:text="'Bienvenido, ' + ${username} + '!'">Bienvenido, Allen Moreno!</h3>
+
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Panel Principal</h4>
+                                <p>Aquí va el contenido de tu dashboard...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div th:replace="fragments/footer :: footer"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
