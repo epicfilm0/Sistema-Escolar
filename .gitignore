@@ -1,0 +1,80 @@
+# ------------------------
+# 🏗️ Archivos compilados
+# ------------------------
+**/target/
+**/bin/
+**/out/
+*.class
+
+# ------------------------
+# ⚙️ Archivos de configuración del sistema
+# ------------------------
+.DS_Store
+Thumbs.db
+
+# ------------------------
+# 🧠 Archivos de dependencias (no se suben)
+# ------------------------
+dependency-reduced-pom.xml
+
+# ------------------------
+# 🧩 Archivos temporales o de logs
+# ------------------------
+*.log
+*.tmp
+*.bak
+*.swp
+
+# ------------------------
+# 🧰 Configuración de IDEs
+# ------------------------
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# NetBeans
+nbproject/
+nbbuild/
+dist/
+nbdist/
+.build/
+
+# VS Code
+.vscode/
+
+# ------------------------
+# 📦 Archivos de empaquetado
+# ------------------------
+*.jar
+*.war
+*.ear
+
+# ------------------------
+# 🔐 Archivos sensibles
+# ------------------------
+*.env
+*.properties.local
+application-local.properties
+application-*.yml
+application-*.yaml
+*.key
+*.pem
+
+# ------------------------
+# 🧪 Archivos de prueba temporales
+# ------------------------
+test-output/
+surefire-reports/
+
+# ------------------------
+# 🗃️ Sistema operativo
+# ------------------------
+ehthumbs.db
+Icon?
+desktop.ini
