@@ -42,8 +42,7 @@
                                 </td>
                                 <td>
                                     <a th:href="@{'/niveles/editar/' + ${n.id}}" class="btn btn-sm btn-info">Editar</a>
-                                    <a th:href="@{'/niveles/eliminar/' + ${n.id}}" class="btn btn-sm btn-danger"
-                                       onclick="return confirm('¿Eliminar este nivel?')">Eliminar</a>
+                                    <a href="#" class="btn btn-sm btn-danger btn-eliminar" th:data-id="${n.id}">Eliminar</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -56,5 +55,45 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.btn-eliminar').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const nivelId = this.getAttribute('data-id');
+
+                Swal.fire({
+                    title: '¿Eliminar este nivel?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/niveles/eliminar/${nivelId}`)
+                            .then(() => {
+                                Swal.fire(
+                                    '¡Eliminado!',
+                                    'El nivel fue eliminado correctamente.',
+                                    'success'
+                                ).then(() => location.reload());
+                            })
+                            .catch(() => {
+                                Swal.fire(
+                                    'Error',
+                                    'No se pudo eliminar el nivel.',
+                                    'error'
+                                );
+                            });
+                    }
+                });
+            });
+        });
+    });
+</script>
 </body>
 </html>

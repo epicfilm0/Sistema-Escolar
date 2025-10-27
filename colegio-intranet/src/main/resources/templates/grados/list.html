@@ -41,9 +41,7 @@
                                 <td th:text="${g.paralelo}"></td>
                                 <td>
                                     <a class="btn btn-sm btn-info" th:href="@{'/grados/editar/' + ${g.id}}">Editar</a>
-                                    <a class="btn btn-sm btn-danger"
-                                       th:href="@{'/grados/eliminar/' + ${g.id}}"
-                                       onclick="return confirm('¿Eliminar este grado?')">Eliminar</a>
+                                    <a href="#" class="btn btn-sm btn-danger btn-eliminar" th:data-id="${g.id}">Eliminar</a>
                                 </td>
                             </tr>
                             <tr th:if="${#lists.isEmpty(grados)}">
@@ -59,5 +57,45 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.btn-eliminar').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const gradoId = this.getAttribute('data-id');
+
+                Swal.fire({
+                    title: '¿Eliminar este grado?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/grados/eliminar/${gradoId}`)
+                            .then(() => {
+                                Swal.fire(
+                                    '¡Eliminado!',
+                                    'El grado fue eliminado correctamente.',
+                                    'success'
+                                ).then(() => location.reload());
+                            })
+                            .catch(() => {
+                                Swal.fire(
+                                    'Error',
+                                    'No se pudo eliminar el grado.',
+                                    'error'
+                                );
+                            });
+                    }
+                });
+            });
+        });
+    });
+</script>
 </body>
 </html>

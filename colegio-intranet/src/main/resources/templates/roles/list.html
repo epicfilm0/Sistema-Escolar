@@ -36,9 +36,7 @@
                                 <td th:text="${r.descripcion}"></td>
                                 <td>
                                     <a class="btn btn-sm btn-info" th:href="@{'/roles/editar/' + ${r.id}}">Editar</a>
-                                    <a class="btn btn-sm btn-danger"
-                                       th:href="@{'/roles/eliminar/' + ${r.id}}"
-                                       onclick="return confirm('¿Eliminar este rol?')">Eliminar</a>
+                                    <a href="#" class="btn btn-sm btn-danger btn-eliminar" th:data-id="${r.id}">Eliminar</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -51,5 +49,45 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.btn-eliminar').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const rolId = this.getAttribute('data-id');
+
+                Swal.fire({
+                    title: '¿Eliminar este rol?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/roles/eliminar/${rolId}`)
+                            .then(() => {
+                                Swal.fire(
+                                    '¡Eliminado!',
+                                    'El rol fue eliminado correctamente.',
+                                    'success'
+                                ).then(() => location.reload());
+                            })
+                            .catch(() => {
+                                Swal.fire(
+                                    'Error',
+                                    'No se pudo eliminar el rol.',
+                                    'error'
+                                );
+                            });
+                    }
+                });
+            });
+        });
+    });
+</script>
 </body>
 </html>
