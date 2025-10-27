@@ -34,10 +34,10 @@ public class DataInitializer {
             if (userRepo.findByUsername("admin").isEmpty()) {
                 User admin = new User();
                 admin.setUsername("admin");
-                admin.setNombres("Luis");
-                admin.setApellidos("Aponte");
+                //admin.setNombres("Luis");
+                //admin.setApellidos("Aponte");
                 admin.setEmail("luisaponte.official@gmail.com");
-                admin.setTelefono("927586875");
+                //admin.setTelefono("927586875");
                 admin.setPassword(encoder.encode("admin123"));
                 admin.setRole(adminRole);
                 userRepo.save(admin);

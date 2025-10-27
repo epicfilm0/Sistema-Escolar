@@ -2,6 +2,7 @@ package com.colegio.pe.controller;
 
 import com.colegio.pe.model.Role;
 import com.colegio.pe.repository.RoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +13,8 @@ import java.util.List;
 @RequestMapping("/roles")
 public class RoleController {
 
-    private final RoleRepository repo;
-
-    public RoleController(RoleRepository repo) {
-        this.repo = repo;
-    }
+    @Autowired
+    RoleRepository repo;
 
     @GetMapping
     public String listar(Model model) {

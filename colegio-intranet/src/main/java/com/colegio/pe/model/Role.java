@@ -16,7 +16,6 @@ public class Role {
 
     @Column(nullable = false, unique = true)
     private String nombre;
-
     private String descripcion;
 
 }

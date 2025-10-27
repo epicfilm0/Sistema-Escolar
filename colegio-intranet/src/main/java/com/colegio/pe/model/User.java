@@ -1,8 +1,8 @@
 package com.colegio.pe.model;
 
 import lombok.Data;
-
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -13,21 +13,21 @@ public class User {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
+        private String email;
         @Column(nullable = false, unique = true)
         private String username;
-
         @Column(nullable = false)
         private String password;
-
         @ManyToOne(fetch = FetchType.EAGER)
         @JoinColumn(name = "role_id", nullable = false)
         private Role role;
+        private LocalDate fecha;
+        private String estado;
 
-        private String nombres;
-        private String apellidos;
-        private String email;
-        private String telefono;
-        private String direccion;
-        private String foto;
-
+        @PrePersist
+        public void prePersist() {
+            if (fecha == null) {
+                fecha = LocalDate.now();
+            }
+        }
 }

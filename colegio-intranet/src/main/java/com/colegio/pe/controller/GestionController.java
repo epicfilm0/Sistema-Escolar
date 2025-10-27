@@ -2,6 +2,7 @@ package com.colegio.pe.controller;
 
 import com.colegio.pe.model.Gestion;
 import com.colegio.pe.repository.GestionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +14,8 @@ import java.util.List;
 @RequestMapping("/gestiones")
 public class GestionController {
 
-    private final GestionRepository repo;
-
-    public GestionController(GestionRepository repo) {
-        this.repo = repo;
-    }
+    @Autowired
+    GestionRepository repo;
 
     @GetMapping
     public String listar(Model model) {

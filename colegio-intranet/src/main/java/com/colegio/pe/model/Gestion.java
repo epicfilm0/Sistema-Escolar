@@ -14,10 +14,8 @@ public class Gestion {
     private Long id;
 
     private String nombre;
-
     private LocalDate fecha;
-
-    private String estado; // ACTIVO / INACTIVO
+    private String estado;
 
     @PrePersist
     public void prePersist() {

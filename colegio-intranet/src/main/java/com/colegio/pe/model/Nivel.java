@@ -15,9 +15,7 @@ public class Nivel {
     @ManyToOne
     @JoinColumn(name = "gestion_id")
     private Gestion gestion;
-
-    private String nombre; // Inicial, Primaria, Secundaria
-    private String turno; // Mañana, Tarde, Noche
-    private String estado; // Activo / Inactivo
-
+    private String nombre;
+    private String turno;
+    private String estado;
 }

@@ -2,6 +2,7 @@ package com.colegio.pe.controller;
 
 import com.colegio.pe.model.Curso;
 import com.colegio.pe.repository.CursoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +14,8 @@ import java.util.List;
 @RequestMapping("/cursos")
 public class CursoController {
 
-    private final CursoRepository repo;
-
-    public CursoController(CursoRepository repo) {
-        this.repo = repo;
-    }
+    @Autowired
+    CursoRepository repo;
 
     @GetMapping
     public String listar(Model model) {

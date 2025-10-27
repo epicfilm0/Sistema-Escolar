@@ -4,6 +4,7 @@ import com.colegio.pe.model.Gestion;
 import com.colegio.pe.model.Nivel;
 import com.colegio.pe.repository.GestionRepository;
 import com.colegio.pe.repository.NivelRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,22 +13,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/niveles")
 public class NivelController {
 
-    private final NivelRepository nivelRepo;
-    private final GestionRepository gestionRepo;
+    @Autowired
+    NivelRepository nivelRepo;
+    @Autowired
+    GestionRepository gestionRepo;
 
-    public NivelController(NivelRepository nivelRepo, GestionRepository gestionRepo) {
-        this.nivelRepo = nivelRepo;
-        this.gestionRepo = gestionRepo;
-    }
-
-    // 🔹 Listar niveles
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("niveles", nivelRepo.findAll());
         return "nivel/list";
     }
 
-    // 🔹 Formulario nuevo
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("nivel", new Nivel());
@@ -52,8 +48,6 @@ public class NivelController {
         return "redirect:/niveles?success";
     }
 
-
-    // 🔹 Editar nivel
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
         Nivel nivel = nivelRepo.findById(id)
@@ -63,10 +57,9 @@ public class NivelController {
         return "nivel/form";
     }
 
-    // 🔹 Eliminar nivel
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable Long id) {
         nivelRepo.deleteById(id);
-        return "redirect:/niveles?deleted"; // ✅ corregido (plural)
+        return "redirect:/niveles?deleted";
     }
 }

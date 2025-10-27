@@ -16,7 +16,6 @@ public class Grado {
     @ManyToOne
     @JoinColumn(name = "nivel_id")
     private Nivel nivel;
-
-    private String nombre;   // Ej: PRIMARIA - 3
-    private String paralelo; // Ej: A, B, C, D
+    private String nombre;
+    private String paralelo;
 }

@@ -21,7 +21,6 @@ public class GradoController {
     @Autowired
     private NivelRepository nivelRepository;
 
-    // 🔹 Listar grados
     @GetMapping
     public String listar(Model model) {
         List<Grado> grados = gradoRepository.findAll();
@@ -29,7 +28,6 @@ public class GradoController {
         return "grados/list";
     }
 
-    // 🔹 Formulario nuevo grado
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("grado", new Grado());
@@ -37,7 +35,6 @@ public class GradoController {
         return "grados/form";
     }
 
-    // 🔹 Guardar o actualizar grado
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute("grado") Grado grado) {
         if (grado.getNivel() != null && grado.getNivel().getId() != null) {
@@ -49,7 +46,6 @@ public class GradoController {
         return "redirect:/grados?success";
     }
 
-    // 🔹 Editar
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
         Grado grado = gradoRepository.findById(id).orElse(new Grado());
@@ -58,7 +54,6 @@ public class GradoController {
         return "grados/form";
     }
 
-    // 🔹 Eliminar
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable Long id) {
         gradoRepository.deleteById(id);
