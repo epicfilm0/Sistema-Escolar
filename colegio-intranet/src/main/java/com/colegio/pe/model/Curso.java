@@ -1,23 +1,24 @@
 package com.colegio.pe.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.time.LocalDate;
-import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "gestiones")
-public class Gestion {
+@Table(name = "cursos")
+public class Curso {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String nombre;
-
     private LocalDate fecha;
 
-    private String estado; // ACTIVO / INACTIVO
+    private String estado;
 
     @PrePersist
     public void prePersist() {
