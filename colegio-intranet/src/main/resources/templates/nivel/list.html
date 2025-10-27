@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div class="container-scroller">
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="container-fluid page-body-wrapper">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="font-weight-bold">Mantenimiento de Niveles</h3>
+                    <a class="btn btn-primary" th:href="@{/niveles/nuevo}">+ Nuevo Nivel</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div th:if="${param.success}" class="alert alert-success">Nivel guardado correctamente</div>
+                        <div th:if="${param.deleted}" class="alert alert-danger">Nivel eliminado correctamente</div>
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Gestión</th>
+                                <th>Nivel</th>
+                                <th>Turno</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="n : ${niveles}">
+                                <td th:text="${n.id}"></td>
+                                <td th:text="${n.gestion != null ? n.gestion.nombre : '—'}"></td>
+                                <td th:text="${n.nombre}"></td>
+                                <td th:text="${n.turno}"></td>
+                                <td>
+                                    <span th:text="${n.estado}"
+                                          th:classappend="${n.estado == 'ACTIVO'} ? 'badge bg-success' : 'badge bg-danger'"></span>
+                                </td>
+                                <td>
+                                    <a th:href="@{'/niveles/editar/' + ${n.id}}" class="btn btn-sm btn-info">Editar</a>
+                                    <a th:href="@{'/niveles/eliminar/' + ${n.id}}" class="btn btn-sm btn-danger"
+                                       onclick="return confirm('¿Eliminar este nivel?')">Eliminar</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div th:replace="fragments/footer :: footer"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

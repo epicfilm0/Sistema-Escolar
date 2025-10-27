@@ -10,6 +10,7 @@
 
         <div class="main-panel">
             <div class="content-wrapper">
+
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h3 class="font-weight-bold">Grados</h3>
                     <a class="btn btn-primary" th:href="@{/grados/nuevo}">+ Nuevo Grado</a>
@@ -24,16 +25,20 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Fecha</th>
+                                <th>Nivel</th>
+                                <th>Turno</th>
+                                <th>Grado</th>
+                                <th>Paralelo</th>
                                 <th>Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="g : ${grados}">
                                 <td th:text="${g.id}"></td>
+                                <td th:text="${g.nivel != null ? g.nivel.nombre : '—'}"></td>
+                                <td th:text="${g.nivel != null ? g.nivel.turno : '—'}"></td>
                                 <td th:text="${g.nombre}"></td>
-                                <td th:text="${g.fecha}"></td>
+                                <td th:text="${g.paralelo}"></td>
                                 <td>
                                     <a class="btn btn-sm btn-info" th:href="@{'/grados/editar/' + ${g.id}}">Editar</a>
                                     <a class="btn btn-sm btn-danger"
@@ -41,12 +46,15 @@
                                        onclick="return confirm('¿Eliminar este grado?')">Eliminar</a>
                                 </td>
                             </tr>
+                            <tr th:if="${#lists.isEmpty(grados)}">
+                                <td colspan="6" class="text-center text-muted">No hay grados registrados</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
 
+            </div>
             <div th:replace="fragments/footer :: footer"></div>
         </div>
     </div>

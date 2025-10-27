@@ -10,18 +10,36 @@
 
         <div class="main-panel">
             <div class="content-wrapper">
+                <h3 class="font-weight-bold mb-4">Registrar / Editar Grado</h3>
+
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title" th:text="${grado.id == null ? 'Nuevo Grado' : 'Editar Grado'}"></h4>
                         <form th:action="@{/grados/guardar}" th:object="${grado}" method="post">
+
                             <input type="hidden" th:field="*{id}" />
+
                             <div class="form-group">
-                                <label>Nombre</label>
-                                <input type="text" th:field="*{nombre}" class="form-control" required />
+                                <label>Nivel</label>
+                                <select id="nivelSelect" th:field="*{nivel.id}" class="form-control" required>
+                                    <option value="">Seleccione un nivel</option>
+                                    <option th:each="n : ${niveles}" th:value="${n.id}" th:text="${n.nombre}"></option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nombre del Grado</label>
+                                <select id="nombreSelect" th:field="*{nombre}" class="form-control" required>
+                                    <option value="">Seleccione un grado</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Paralelo</label>
+                                <input type="text" th:field="*{paralelo}" class="form-control" placeholder="Ej: A, B, C" maxlength="1" />
                             </div>
 
                             <button type="submit" class="btn btn-primary">Guardar</button>
-                            <a class="btn btn-secondary" th:href="@{/grados}">Cancelar</a>
+                            <a th:href="@{/grados}" class="btn btn-secondary">Cancelar</a>
                         </form>
                     </div>
                 </div>
@@ -31,5 +49,32 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const nivelSelect = document.getElementById("nivelSelect");
+        const nombreSelect = document.getElementById("nombreSelect");
+
+        const opcionesPorNivel = {
+            "INICIAL": ["1 - INICIAL", "2 - INICIAL"],
+            "PRIMARIA": ["1 - PRIMARIA", "2 - PRIMARIA", "3 - PRIMARIA", "4 - PRIMARIA", "5 - PRIMARIA", "6 - PRIMARIA"],
+            "SECUNDARIA": ["1 - SECUNDARIA", "2 - SECUNDARIA", "3 - SECUNDARIA", "4 - SECUNDARIA", "5 - SECUNDARIA", "6 - SECUNDARIA"]
+        };
+
+        nivelSelect.addEventListener("change", function() {
+            const selectedNivel = nivelSelect.options[nivelSelect.selectedIndex].text.trim();
+            const opciones = opcionesPorNivel[selectedNivel] || [];
+
+            nombreSelect.innerHTML = '<option value="">Seleccione un grado</option>';
+            opciones.forEach(op => {
+                const option = document.createElement("option");
+                option.value = op;
+                option.textContent = op;
+                nombreSelect.appendChild(option);
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

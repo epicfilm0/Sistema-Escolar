@@ -2,8 +2,10 @@ package com.colegio.pe.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "gestiones")
 public class Gestion {
 

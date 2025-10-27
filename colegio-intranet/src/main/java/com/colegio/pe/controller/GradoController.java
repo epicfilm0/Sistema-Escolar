@@ -1,58 +1,67 @@
 package com.colegio.pe.controller;
 
 import com.colegio.pe.model.Grado;
+import com.colegio.pe.model.Nivel;
 import com.colegio.pe.repository.GradoRepository;
+import com.colegio.pe.repository.NivelRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 @RequestMapping("/grados")
 public class GradoController {
 
-    private final GradoRepository repo;
+    @Autowired
+    private GradoRepository gradoRepository;
 
-    public GradoController(GradoRepository repo) {
-        this.repo = repo;
-    }
+    @Autowired
+    private NivelRepository nivelRepository;
 
+    // 🔹 Listar grados
     @GetMapping
     public String listar(Model model) {
-        List<Grado> grados = repo.findAll();
+        List<Grado> grados = gradoRepository.findAll();
         model.addAttribute("grados", grados);
         return "grados/list";
     }
 
+    // 🔹 Formulario nuevo grado
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
-        Grado grado = new Grado();
-        grado.setFecha(LocalDate.now());
-        model.addAttribute("grado", grado);
+        model.addAttribute("grado", new Grado());
+        model.addAttribute("niveles", nivelRepository.findAll());
         return "grados/form";
     }
 
+    // 🔹 Guardar o actualizar grado
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute("grado") Grado grado) {
-        if (grado.getFecha() == null) {
-            grado.setFecha(LocalDate.now());
+        if (grado.getNivel() != null && grado.getNivel().getId() != null) {
+            Nivel nivel = nivelRepository.findById(grado.getNivel().getId())
+                    .orElseThrow(() -> new RuntimeException("Nivel no encontrado"));
+            grado.setNivel(nivel);
         }
-        repo.save(grado);
+        gradoRepository.save(grado);
         return "redirect:/grados?success";
     }
 
+    // 🔹 Editar
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
-        Grado grado = repo.findById(id).orElseThrow(() -> new RuntimeException("Grado no encontrado"));
+        Grado grado = gradoRepository.findById(id).orElse(new Grado());
         model.addAttribute("grado", grado);
+        model.addAttribute("niveles", nivelRepository.findAll());
         return "grados/form";
     }
 
+    // 🔹 Eliminar
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable Long id) {
-        repo.deleteById(id);
+        gradoRepository.deleteById(id);
         return "redirect:/grados?deleted";
     }
 }

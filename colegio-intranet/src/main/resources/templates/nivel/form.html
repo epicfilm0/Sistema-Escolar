@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div class="container-scroller">
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="container-fluid page-body-wrapper">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <h3 th:text="${nivel.id} != null ? 'Editar Nivel' : 'Registrar Nivel'"></h3>
+
+                <div class="card">
+                    <div class="card-body">
+                        <form th:action="@{/niveles/guardar}" th:object="${nivel}" method="post">
+                            <input type="hidden" th:field="*{id}" />
+
+                            <div class="form-group">
+                                <label>Gestión</label>
+                                <select th:field="*{gestion.id}" class="form-control" required>
+                                    <option value="">Seleccione una gestión</option>
+                                    <option th:each="g : ${gestiones}" th:value="${g.id}" th:text="${g.nombre}"></option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nivel</label>
+                                <input type="text" th:field="*{nombre}" class="form-control" placeholder="Ej: Primaria" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Turno</label>
+                                <select th:field="*{turno}" class="form-control" required>
+                                    <option value="">Seleccione un turno</option>
+                                    <option value="MAÑANA">Mañana</option>
+                                    <option value="TARDE">Tarde</option>
+                                    <option value="NOCHE">Noche</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Estado</label>
+                                <select th:field="*{estado}" class="form-control" required>
+                                    <option value="ACTIVO">Activo</option>
+                                    <option value="INACTIVO">Inactivo</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <a th:href="@{/niveles}" class="btn btn-secondary">Cancelar</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div th:replace="fragments/footer :: footer"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

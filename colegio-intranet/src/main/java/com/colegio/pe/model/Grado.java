@@ -1,9 +1,11 @@
 package com.colegio.pe.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
+@Data
 @Table(name = "grados")
 public class Grado {
 
@@ -11,23 +13,10 @@ public class Grado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre;
+    @ManyToOne
+    @JoinColumn(name = "nivel_id")
+    private Nivel nivel;
 
-    private LocalDate fecha;
-
-    @PrePersist
-    public void prePersist() {
-        if (fecha == null) {
-            fecha = LocalDate.now();
-        }
-    }
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-
-    public LocalDate getFecha() { return fecha; }
-    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
+    private String nombre;   // Ej: PRIMARIA - 3
+    private String paralelo; // Ej: A, B, C, D
 }
